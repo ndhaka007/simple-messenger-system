@@ -1,0 +1,45 @@
+version: '2'
+services:
+  chat:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: chat
+    container_name: chat
+    networks:
+      - simple-messenger-system_chat-network
+    links:
+      - chat_db
+    ports:
+      - 48080:8080
+      - 5055:5055
+    depends_on:
+      - chat_db
+    restart: always
+    environment:
+      DATABASE_HOST: chat_db
+      DATABASE_USER: chat_user
+      DATABASE_PASSWORD: 123
+      DATABASE_NAME: chat
+      DATABASE_PORT: 3306
+      APP_MODE: dev_docker
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5055
+      LOG_LEVEL: info
+  chat_db:
+    image: mysql:8
+    container_name: chat_db
+    restart: always
+    networks:
+      - simple-messenger-system_chat-network
+    environment:
+      MYSQL_USER: chat_user
+      MYSQL_PASSWORD: 123
+      MYSQL_DATABASE: chat
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - ./dockerconf/chat_db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 23306:3306
+networks:
+  simple-messenger-system_chat-network:
+    driver: bridge
