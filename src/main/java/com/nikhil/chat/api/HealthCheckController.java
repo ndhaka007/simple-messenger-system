@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@Api(value = "/health_check", tags = "System Health Resource")
+@Api(tags = "System Health Resource")
 @RestController
 public class HealthCheckController {
     @Setter
