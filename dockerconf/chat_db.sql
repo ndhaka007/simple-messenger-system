@@ -1,5 +1,6 @@
-CREATE DATABASE chat;
+CREATE DATABASE IF NOT EXISTS chat;
 
-GRANT ALL PRIVILEGES ON DATABASE chat to chat_user;
-
-\c chat;
+DROP USER IF EXISTS 'chat_user'@'%';
+FLUSH PRIVILEGES;
+CREATE USER 'chat_user'@'%' identified by '123';
+GRANT ALL PRIVILEGES ON chat.* TO 'chat_user'@'%';
