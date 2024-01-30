@@ -28,13 +28,11 @@ services:
   chat_db:
     image: mysql:8
     container_name: chat_db
-    restart: always
-    networks:
-      - simple-messenger-system_chat-network
     environment:
       MYSQL_USER: chat_user
       MYSQL_PASSWORD: 123
       MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: chat
     volumes:
       - ./dockerconf/chat_db.sql:/docker-entrypoint-initdb.d/init.sql
       - ./dockerconf/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -42,4 +40,3 @@ services:
       - 23306:3306
 networks:
   simple-messenger-system_chat-network:
-    driver: bridge

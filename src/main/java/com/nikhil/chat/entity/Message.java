@@ -30,7 +30,4 @@ public class Message extends BaseEntity {
 
     @Column(name = "read_at")
     private long readAt;
-
-    // Constructors, getters, setters, and other methods as needed
-
 }

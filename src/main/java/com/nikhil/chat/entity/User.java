@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,5 +21,8 @@ public class User extends BaseEntity {
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "active",nullable = false)
+    private Boolean active;
 
 }

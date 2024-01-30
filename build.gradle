@@ -22,11 +22,12 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.swagger:swagger-annotations:1.5.20'
-	implementation 'javax.ws.rs:javax.ws.rs-api:2.1'
-	implementation 'mysql:mysql-connector-java:8.0.12'
+	implementation 'io.swagger:swagger-annotations:1.6.8'
+	implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+	implementation 'mysql:mysql-connector-java:8.0.33'
 
 	compileOnly 'org.projectlombok:lombok'
 

@@ -1,42 +1,42 @@
 package com.nikhil.chat.service;
 
 import com.nikhil.chat.entity.User;
+import com.nikhil.chat.core.UserCore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class UserService {
-    private Map<String, User> users = new ConcurrentHashMap<>();
 
+    private final UserCore userCore;
 
-    public User registerUser(String username, String password) {
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(password);
-        users.put(username, newUser);
-        return newUser;
+    @Autowired
+    public UserService(UserCore userCore) {
+        this.userCore = userCore;
     }
 
 
-//    public User getUser(String username) {
-//        return users.get(username);
-//    }
-//
-//
-//    public List<String> getFriends(String username) {
-//        User user = users.get(username);
-//        return user != null ? user.getFriends() : Collections.emptyList();
-//    }
-//
-//
-//    public void addFriend(String username, String friendUsername) {
-//        User user = users.get(username);
-//        if (user != null) {
-//            user.getFriends().add(friendUsername);
-//        }
-//    }
+    public User registerUser(User user) {
+        userCore.Create(user);
+        return user;
+    }
+
+    public User Login(String userName) {
+        return userCore.Login(userName);
+    }
+
+    public User Logout(String userName) {
+        return userCore.Logout(userName);
+    }
+
+    public List<User> GetUsers() {
+        return userCore.GetActiveUsers();
+    }
 }
