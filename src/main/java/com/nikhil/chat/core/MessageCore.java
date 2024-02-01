@@ -13,13 +13,21 @@ public class MessageCore {
     private final MessageRepository messageRepository;
     private final UserCore userCore;
 
+    private final BlockUserCore blockUserCore;
+
     @Autowired
-    public MessageCore(MessageRepository messageRepository, UserCore userCore ) {
+    public MessageCore(MessageRepository messageRepository, UserCore userCore, BlockUserCore blockUserCore) {
         this.userCore = userCore;
         this.messageRepository = messageRepository;
+        this.blockUserCore = blockUserCore;
     }
 
     public void sendMessage(String sender, String receiver, String content) {
+        // validation to check blocked user
+        if (blockUserCore.IsUserBlocked(sender, receiver)) {
+            throw new IllegalArgumentException("User is blocked can't send messages");
+        }
+
         // Assuming currentTimestamp is the current timestamp
         long currentTimestamp = System.currentTimeMillis();
 
